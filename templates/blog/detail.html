@@ -1,0 +1,53 @@
+{% extends 'coffee_web/wrapper.html' %}
+{%load static %}
+
+{% block detail_blog %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-60 col-lg-10">
+                <div class="title text-center">              
+                    <h1 class="mb-10">{{post.title}}</h1>
+                    <p>{{post.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for photo in photos %}           
+                    {% comment %} {% if photo.image %} {% endcomment %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class="{% if forloop.counter0 == 0 %} active {% endif %}"></li> 
+                    {% comment %} {% endif %}  {% endcomment %}
+                {% endfor %}
+            </ol>
+        <div class="carousel-inner" role="listbox">
+            {% for photo in photos %}
+                <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                    <img class="d-block w-100" src="{{photo.images.url}} " alt="First slide" width="800" height="800">
+                </div>]
+            {% endfor %}   
+        </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        </br>
+         </br>
+          </br>
+           </br>
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-60 col-lg-10">
+                <div class="title text-center">                 
+                    <p>{{post.created}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,138 @@
+{% extends 'coffee_web/wrapper.html'%}
+{% load static %}
+
+
+{% block menu %}
+    <section class="menu-area section-gap" id="coffee">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-60 col-lg-10">
+                    <div class="title text-center">
+                        <h1 class="mb-10">What kind of Coffee we serve for you</h1>
+                        <p>Who are in extremely love with eco friendly system.</p>
+                    </div>
+                </div>
+            </div>
+            					
+            <div class="row">
+            {% for coffee in coffee_list %}	
+                <div class="col-lg-4">
+                    <div class="single-menu">
+                        <div class="title-div justify-content-between d-flex">
+                            <h4>{{coffee.name}}</h4>
+                            <p class="price float-right">
+                                ${{coffee.price}}
+                            </p>
+                        </div>
+                        <p>
+                            {{coffee.description}}
+                        </p>
+                        <p class="price float-right">
+                            {{coffee.measure}}
+                        </p>								
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+        </div>
+
+        {% block coffee_order %}
+
+            <div class="button-group-area mt-10">
+                <center>
+                    <a href="{% url 'create' %} " data-toggle="modal" data-target="#exampleModal" class="genric-btn info-border circle">OPEN CART</a>
+                </center>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Order</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                                <div class="form-group">
+                                    {{form2.coffee}}
+                                </div>
+                                <div class="form-group">
+                                    {{form2.quantity}}
+                                </div>
+                                <div class="form-group">
+                                    <p style='color: red;'>Online payment?{{form2.paid}}</p>
+                                </div>
+                                <div class="form-group">
+                                    {{form.first_name}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.last_name}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.email}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.address}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.city}}
+                                </div>                              
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        {% endblock %} 
+
+    </section>
+
+{% endblock %}
+
+
+{% block blog %}
+    <section class="blog-area section-gap" id="blog">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-60 col-lg-10">
+                    <div class="title text-center">
+                        <h1 class="mb-10">Our blog</h1>
+                        <p>Who are in extremely love with eco friendly system.</p>
+                    </div>
+                </div>
+            </div>						
+            <div class="row">
+            {%for post in posts %}
+                <div class="col-lg-6 col-md-6 single-blog">
+                    {% if post.image %}
+                        <img class="img-fluid" src="{{post.image.url}}" alt="">
+                    {% endif %}
+                    </br>
+                    </br>
+                    </br>
+                    <a href="{% url 'detail' post.id%}"><h4>{{post.title}}</h4></a>
+                    <p>
+                        {{post.description}}
+                    </p>
+                    <p class="post-date">
+                        {{post.created}}
+                    </p>
+                </div>            
+            {%endfor%}						
+            </div>
+        </div>	
+    </section>
+{% endblock %}
+
+
+
+
+
